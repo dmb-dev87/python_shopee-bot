@@ -9,7 +9,6 @@ import libraries.login as login
 
 class Shop:
     def __init__(self, url, username, password):
-        print('Shop Init')
         self.Shop_Url = url
         self.Username = username
         self.Password = password
@@ -21,36 +20,26 @@ class Shop:
             "//div[@class='language-selection__list-item' and .//button[contains(., 'English')]]").click()
         time.sleep(5);
 
-    def follow(self):
+    def follow(self, idle_time):
         browser = webdriver.Chrome(executable_path='./chromedriver.exe')
-        wait = WebDriverWait(browser, 10)
+        wait = WebDriverWait(browser, idle_time)
 
         browser.get(self.Shop_Url)
         self.click_LangBtn(browser)
 
-        print('Login...')
         login_link = browser.find_element_by_xpath("//a[contains(., 'Login')]")
 
         if login_link is None:
-            print('Cant find the login link')
-            return True
+            return
         else:
-            print('Go to login url')
             login_url = login_link.get_attribute('href')
-            print(login_url)
-
             browser.get(login_url)
-            # wait.until(EC.url_changes(login_url))
-
             user_log = login.Login(self.Username, self.Password)
-            result = user_log.log_In(browser)
-            print(result)
+            user_log.log_In(browser)
 
             wait.until(EC.url_changes(self.Shop_Url))
-            print('Wait follow...')
             element_present = EC.presence_of_element_located((By.XPATH, '//button[contains(text(), "follow")]'))
-            WebDriverWait(browser, 10).until(element_present)
-            print('Find follow button...')
+            wait.until(element_present)
 
             try:
                 browser.find_element_by_xpath('//button[contains(text(), "following")]')
@@ -58,28 +47,23 @@ class Shop:
                 follow_btn = browser.find_element_by_xpath('//button[contains(text(), "follow")]')
                 follow_btn.click()
 
-            time.sleep(5)
+            time.sleep(idle_time)
             browser.close()
 
-    def visit(self):
+    def visit(self, idle_time):
         browser = webdriver.Chrome(executable_path='./chromedriver.exe')
-
         browser.get(self.Shop_Url)
         self.click_LangBtn(browser)
 
-        print('Login...')
         login_link = browser.find_element_by_xpath("//a[contains(., 'Login')]")
 
         if login_link is None:
-            print('Cant find the login link')
-            return True
+            return
         else:
-            print('Go to login url')
             login_url = login_link.get_attribute('href')
-            print(login_url)
-
             browser.get(login_url)
-
             user_log = login.Login(self.Username, self.Password)
-            result = user_log.log_In(browser)
-            print(result)
+            user_log.log_In(browser)
+
+            time.sleep(idle_time)
+            browser.close()
