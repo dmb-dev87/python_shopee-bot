@@ -60,6 +60,12 @@ class Product:
             user_log.log_In(browser)
 
             wait.until(EC.url_changes(self.Product_Url))
+
+            if browser.current_url is not self.Product_Url:
+                time.sleep(idle_time)
+                browser.close()
+                return
+
             element_present = EC.presence_of_element_located((By.XPATH, '//div[contains(text(), "Favorite")]'))
             wait.until(element_present)
 

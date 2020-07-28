@@ -12,21 +12,33 @@ from PyQt5.QtCore import *
 import libraries.product as product
 import libraries.shop as shop
 
-def shop_visit(shop_url, username, password, idle_time):
-    sh = shop.Shop(shop_url, username, password)
-    sh.visit(idle_time)
+def shop_visit(shop_url, users, idle_time):
+    for user in users:
+        username = user[0]
+        password = user[1]
+        sh = shop.Shop(shop_url, username, password)
+        sh.visit(idle_time)
 
-def shop_follow(shop_url, username, password, idle_time):
-    sh = shop.Shop(shop_url, username, password)
-    sh.follow(idle_time)
+def shop_follow(shop_url, users, idle_time):
+    for user in users:
+        username = user[0]
+        password = user[1]
+        sh = shop.Shop(shop_url, username, password)
+        sh.follow(idle_time)
 
-def product_visit(product_url, username, password, idle_time):
-    prod = product.Product(product_url, username, password)
-    prod.visit(idle_time)
+def product_visit(product_url, users, idle_time):
+    for user in users:
+        username = user[0]
+        password = user[1]
+        prod = product.Product(product_url, username, password)
+        prod.visit(idle_time)
 
-def product_favorite(product_url, username, password, idle_time):
-    prod = product.Product(product_url, username, password)
-    prod.favorite(idle_time)
+def product_favorite(product_url, users, idle_time):
+    for user in users:
+        username = user[0]
+        password = user[1]
+        prod = product.Product(product_url, username, password)
+        prod.favorite(idle_time)
 
 class CMainWnd(QWidget):
     def __init__(self, parent=None):
@@ -88,11 +100,7 @@ class CMainWnd(QWidget):
             else:
                 return
 
-        for user in self.Shop_users:
-            username = user[0]
-            password = user[1]
-            threading.Thread(target=shop_visit, args=(shop_url, username, password, idle_time,)).start()
-
+        threading.Thread(target=shop_visit, args=(shop_url, self.Shop_users, idle_time,)).start()
 
     def OnBtnFollowClked(self):
         shop_url = self.le_shop_url.text()
@@ -116,11 +124,7 @@ class CMainWnd(QWidget):
             else:
                 return
 
-        for user in self.Shop_users:
-            username = user[0]
-            password = user[1]
-            threading.Thread(target=shop_follow, args=(shop_url, username, password, idle_time,)).start()
-
+        threading.Thread(target=shop_follow, args=(shop_url, self.Shop_users, idle_time,)).start()
 
     def OnBtnClose1Clked(self):
         self.close()
@@ -163,10 +167,7 @@ class CMainWnd(QWidget):
             else:
                 return
 
-        for user in self.Product_users:
-            username = user[0]
-            password = user[1]
-            threading.Thread(target=product_visit, args=(product_url, username, password, idle_time,)).start()
+        threading.Thread(target=product_visit, args=(product_url, self.Product_users, idle_time,)).start()
 
     def OnBtnFavouriteClked(self):
         product_url = self.le_product_url.text()
@@ -189,10 +190,7 @@ class CMainWnd(QWidget):
             else:
                 return
 
-        for user in self.Product_users:
-            username = user[0]
-            password = user[1]
-            threading.Thread(target=product_favorite, args=(product_url, username, password, idle_time,)).start()
+        threading.Thread(target=product_favorite, args=(product_url, self.Product_users, idle_time,)).start()
 
     def OnBtnClose2Clked(self):
         self.close()

@@ -38,6 +38,12 @@ class Shop:
             user_log.log_In(browser)
 
             wait.until(EC.url_changes(self.Shop_Url))
+
+            if browser.current_url is not self.Shop_Url:
+                time.sleep(idle_time)
+                browser.close()
+                return
+
             element_present = EC.presence_of_element_located((By.XPATH, '//button[contains(text(), "follow")]'))
             wait.until(element_present)
 
