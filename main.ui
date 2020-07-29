@@ -40,7 +40,7 @@
       <string notr="true">color: rgba(255, 255, 255, 240);</string>
      </property>
      <property name="title">
-      <string>Idle Time: (default 20, maximum 100)</string>
+      <string>Idle Time: (default 30, maximum 100)</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="4">
@@ -98,7 +98,7 @@
            <string notr="true">color: rgb(240, 240, 240, 240);</string>
           </property>
           <property name="text">
-           <string>20</string>
+           <string>30</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -174,7 +174,7 @@
            <string notr="true">color: rgb(240, 240, 240, 240);</string>
           </property>
           <property name="text">
-           <string>20</string>
+           <string>30</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -262,7 +262,7 @@
            <string notr="true">color: rgb(240, 240, 240, 240);</string>
           </property>
           <property name="text">
-           <string>20</string>
+           <string>30</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -279,7 +279,7 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>20</width>
+            <width>30</width>
             <height>0</height>
            </size>
           </property>

@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 
 import time
 import libraries.login as login
@@ -52,28 +53,23 @@ class Product:
 
         if login_link is None:
             return
-        else:
-            login_url = login_link.get_attribute('href')
-            browser.get(login_url)
 
-            user_log = login.Login(self.Username, self.Password)
-            user_log.log_In(browser)
+        login_url = login_link.get_attribute('href')
+        browser.get(login_url)
 
-            wait.until(EC.url_changes(self.Product_Url))
+        user_log = login.Login(self.Username, self.Password)
+        user_log.log_In(browser)
 
-            if browser.current_url is not self.Product_Url:
-                time.sleep(idle_time)
-                browser.close()
-                return
-
-            element_present = EC.presence_of_element_located((By.XPATH, '//div[contains(text(), "Favorite")]'))
-            wait.until(element_present)
-
+        try:
+            wait.until(EC.presence_of_element_located((By.XPATH, '//div[contains(text(), "Favorite")]')))
             try:
-                fav_element = browser.find_element_by_xpath('//*[name()="svg"][@class="_10K0Ee"]/*[name()="path"][@fill="none"]')
+                fav_element = browser.find_element_by_xpath(
+                    '//*[name()="svg"][@class="_10K0Ee"]/*[name()="path"][@fill="none"]')
                 ActionChains(browser).move_to_element(fav_element).click().perform()
+                time.sleep(idle_time)
             except NoSuchElementException:
                 time.sleep(idle_time)
-
+        except TimeoutException:
             time.sleep(idle_time)
-            browser.close()
+
+        browser.close()

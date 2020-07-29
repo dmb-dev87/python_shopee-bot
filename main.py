@@ -82,8 +82,10 @@ class CMainWnd(QWidget):
         shop_url = self.le_shop_url.text()
         idle_time = int(self.le_visit_idle.text())
 
-        if idle_time == 0:
-            idle_time = 20
+        if idle_time < 30:
+            idle_time = 30
+        elif idle_time > 100:
+            idle_time = 100
 
         if not shop_url:
             buttonReply = QMessageBox.question(self, 'Message', "Please input the shop url.", QMessageBox.Yes, QMessageBox.Yes)
@@ -106,8 +108,10 @@ class CMainWnd(QWidget):
         shop_url = self.le_shop_url.text()
         idle_time = int(self.le_visitfollow_idle.text())
 
-        if idle_time == 0:
-            idle_time = 20
+        if idle_time < 30:
+            idle_time = 30
+        elif idle_time > 100:
+            idle_time = 100
 
         if not shop_url:
             buttonReply = QMessageBox.question(self, 'Message', "Please input the shop url.", QMessageBox.Yes, QMessageBox.Yes)
@@ -150,8 +154,10 @@ class CMainWnd(QWidget):
         product_url = self.le_product_url.text()
         idle_time = int(self.le_visitfavourite_idle.text())
 
-        if idle_time == 0:
-            idle_time = 20
+        if idle_time < 30:
+            idle_time = 30
+        elif idle_time > 100:
+            idle_time = 100
 
         if not product_url:
             buttonReply = QMessageBox.question(self, 'Message', "Please input the product url.", QMessageBox.Yes, QMessageBox.Yes)
@@ -173,8 +179,10 @@ class CMainWnd(QWidget):
         product_url = self.le_product_url.text()
         idle_time = int(self.le_visitfavourite_idle.text())
 
-        if idle_time == 0:
-            idle_time = 20
+        if idle_time < 30:
+            idle_time = 30
+        elif idle_time > 100:
+            idle_time = 100
 
         if not product_url:
             buttonReply = QMessageBox.question(self, 'Message', "Please input the product url.", QMessageBox.Yes, QMessageBox.Yes)
